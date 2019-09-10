@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 import i18n from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
@@ -12,6 +13,19 @@ i18n
   .use(Backend)
   .use(LanguageDetector)
   .use(initReactI18next)
+=======
+    
+import i18n from 'i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
+import XHR from 'i18next-xhr-backend';
+import { isDev } from '../helpers/common';
+import en from './translations/en';
+import hy from './translations/hy';
+
+i18n
+  .use(XHR)
+  .use(LanguageDetector)
+>>>>>>> Add iif  [[  != socks* ]]; then   unset all_proxy; fin
   .init({
     detection: {
       order: ['localStorage'],
