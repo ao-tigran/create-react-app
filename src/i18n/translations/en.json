@@ -1,0 +1,11 @@
+{
+  "en": "en",
+  "hy": "հայ",
+  "ru": "рус",
+  "login": {
+    "submit": "Submit",
+    "login": "Log in",
+    "username": "username",
+    "password": "password"
+  }
+}
