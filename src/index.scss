@@ -1,0 +1,30 @@
+// @import "./styles/colors";
+// @import "./styles/fonts";
+
+body {
+  height: 100%;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  #root {
+    height: 100%;
+  }
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+// Global overrides
+.ui.header,
+.ui.menu,
+.ui.button,
+.ui.input > input,
+.ui.form .field input {
+  font-family: 'Helvetica Neue Regular', 'Helvetica Neue', sans-serif;
+}
