@@ -1,54 +1,31 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
-import AuthContext from './../../context/AuthContext';
 import SiteWrapper from '../SiteWrapper';
-import AuthenticationRoute from './../AuthenticationRoute';
+import {
+  NotAuthenticatedRoute,
+  AuthenticatedRoute,
+} from './../AuthenticationRoute';
 import LoginScreen from './../../components/LoginScreen';
 import HomeScreen from './../../components/HomeScreen';
-import { isAuthenticated } from '../../helpers/auth';
+import AboutScreen from './../../components/AboutScreen';
+
+import { UserProvider } from './../../hooks/UseUser';
 
 function App() {
-  const [auth, setAuth] = useState({
-    user: null,
-    isAuthenticated: isAuthenticated(),
-    loading: false,
-    error: null,
-  });
-
-  const authenticate = payload => {
-    console.log('attempt to login with credentials: ', payload);
-    setAuth({ ...auth, ...payload });
-  };
-
-  const logout = payload => {
-    console.log('attempt to logout');
-  };
-
   return (
-    <AuthContext.Provider value={{ ...auth, authenticate, logout }}>
+    <UserProvider>
       <SiteWrapper>
         <Switch>
-          <AuthenticationRoute
-            path="/login"
-            withAuth={false}
-            component={LoginScreen}
-            redirectOnFailure="/home"
-          />
-          <AuthenticationRoute
-            path="/"
-            withAuth={true}
-            redirectOnFailure="/login"
-            render={() => (
-              <Switch>
-                <Route path="/home" component={HomeScreen} />
+          <AuthenticatedRoute path="/home" component={HomeScreen} />
 
-                <Redirect to="/home" />
-              </Switch>
-            )}
-          />
+          <NotAuthenticatedRoute path="/login" component={LoginScreen} />
+
+          <Route path="/about" component={AboutScreen} />
+
+          <Redirect from="*" to="/home" />
         </Switch>
       </SiteWrapper>
-    </AuthContext.Provider>
+    </UserProvider>
   );
 }
 

@@ -24,8 +24,7 @@ export const isJwtTokenExpired = token => {
 export const isAuthenticated = () => {
   const token = getToken();
 
-  // return token && !isJwtTokenExpired(token);
-  return token;
+  return token && !isJwtTokenExpired(token);
 };
 
 axios.interceptors.request.use(

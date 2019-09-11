@@ -1,24 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { useUser } from './../../hooks/UseUser';
 
-class HomeScreen extends Component {
-  //LOGOUT
-  //axios
-  //   .delete(`${API_URL}/auth`)
-  //   .then(res => {
-  //     removeToken(res);
-  //     dispatch(deleteTokenFulfilled(res.data.result));
-  //   })
-  //   .catch(err => {
-  //     dispatch(deleteTokenFailed(err));
-  //   });
+const HomeScreen = props => {
+  const context = useUser();
 
-  render() {
-    return (
+  return (
+    <>
       <div style={{ textAlign: 'center', margin: '10px auto' }}>
         Home Screen
       </div>
-    );
-  }
-}
+      <div style={{ textAlign: 'center', margin: '10px auto' }}>{`Welcome ${
+        context.user.username
+      }`}</div>
+    </>
+  );
+};
 
 export default HomeScreen;

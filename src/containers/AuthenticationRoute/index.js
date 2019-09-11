@@ -1,23 +1,27 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { isAuthenticated } from '../../helpers/auth';
+import { useUser } from './../../hooks/UseUser';
 
-class AuthenticationRoute extends Route {
-  isValidRouting = () => {
-    const { withAuth } = this.props;
+export const AuthenticatedRoute = ({ component: Component, ...rest }) => {
+  const { isAuthed } = useUser();
+  return (
+    <Route
+      {...rest}
+      render={props =>
+        isAuthed ? <Component {...props} /> : <Redirect to={'/login'} />
+      }
+    />
+  );
+};
 
-    const isAuth = isAuthenticated();
-
-    return withAuth ? isAuth : !isAuth;
-  };
-
-  render() {
-    return this.isValidRouting() ? (
-      super.render()
-    ) : (
-      <Redirect to={this.props.redirectOnFailure} />
-    );
-  }
-}
-
-export default AuthenticationRoute;
+export const NotAuthenticatedRoute = ({ component: Component, ...rest }) => {
+  const { isAuthed } = useUser();
+  return (
+    <Route
+      {...rest}
+      render={props =>
+        !isAuthed ? <Component {...props} /> : <Redirect to={'/home'} />
+      }
+    />
+  );
+};
