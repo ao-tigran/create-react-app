@@ -53,7 +53,7 @@ const LoginScreen = props => {
             />
           </div>
           <div className={styles.login_submit}>
-            <Button type="submit" value="Submit" content="Log out" primary />
+            <Button type="submit" value="Submit" content="Log In" primary />
           </div>
         </Form>
       </div>
