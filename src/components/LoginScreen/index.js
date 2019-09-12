@@ -31,7 +31,6 @@ const LoginScreen = () => {
               autoComplete="off"
             />
           </div>
-
           <div className={styles.login_input}>
             <label htmlFor="password" className={styles.login_label}>
               {t('login.password')}
