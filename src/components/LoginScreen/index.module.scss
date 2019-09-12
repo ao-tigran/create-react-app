@@ -42,29 +42,12 @@
         height: 40px;
         width: 280px;
         border: 1px solid #cfd8e6;
-        padding-left: 3em !important;
       }
 
       .login_label {
         font-size: 15px;
         color: #28344e;
         margin-bottom: 8px;
-      }
-
-      .errors {
-        color: #ff0000;
-      }
-
-      .user_icon {
-        //background: url("./../../styles/svg/user.svg") no-repeat center center;
-        opacity: 1;
-        border-right: 1px solid #cfd8e6;
-      }
-
-      .password_icon {
-        //background: url("./../../styles/svg/lock.svg") no-repeat center center;
-        opacity: 1;
-        border-right: 1px solid #cfd8e6;
       }
     }
   }

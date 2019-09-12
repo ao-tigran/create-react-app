@@ -1,9 +1,9 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { useUser } from './../../hooks/UseUser';
+import { useAuth } from './../../hooks/useAuth';
 
 export const AuthenticatedRoute = ({ component: Component, ...rest }) => {
-  const { isAuthed } = useUser();
+  const { isAuthed } = useAuth();
   return (
     <Route
       {...rest}
@@ -15,7 +15,7 @@ export const AuthenticatedRoute = ({ component: Component, ...rest }) => {
 };
 
 export const NotAuthenticatedRoute = ({ component: Component, ...rest }) => {
-  const { isAuthed } = useUser();
+  const { isAuthed } = useAuth();
   return (
     <Route
       {...rest}

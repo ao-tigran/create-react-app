@@ -9,11 +9,11 @@ import LoginScreen from './../../components/LoginScreen';
 import HomeScreen from './../../components/HomeScreen';
 import AboutScreen from './../../components/AboutScreen';
 
-import { UserProvider } from './../../hooks/UseUser';
+import { AuthProvider } from './../../hooks/useAuth';
 
 function App() {
   return (
-    <UserProvider>
+    <AuthProvider>
       <SiteWrapper>
         <Switch>
           <AuthenticatedRoute path="/home" component={HomeScreen} />
@@ -25,7 +25,7 @@ function App() {
           <Redirect from="*" to="/home" />
         </Switch>
       </SiteWrapper>
-    </UserProvider>
+    </AuthProvider>
   );
 }
 

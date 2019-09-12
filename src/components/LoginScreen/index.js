@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
-
-import { useUser } from './../../hooks/UseUser';
-
 import { withRouter } from 'react-router';
-
+import { useAuth } from './../../hooks/useAuth';
 import { Form, Button, Input } from 'semantic-ui-react';
 import styles from './index.module.scss';
 
@@ -11,7 +8,7 @@ const LoginScreen = props => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const { authenticate } = useUser();
+  const { authenticate } = useAuth();
 
   const handleUsernameChange = event => {
     setUsername(event.target.value);
@@ -24,7 +21,6 @@ const LoginScreen = props => {
   const handleFormSubmit = event => {
     event.preventDefault();
 
-    //TO DO - VALIDATE username and password
     authenticate({ username, password });
   };
 
@@ -38,9 +34,9 @@ const LoginScreen = props => {
             </label>
             <Input
               name="username"
-              iconPosition="left"
               placeholder="Login name"
               onChange={handleUsernameChange}
+              autoComplete="off"
             />
           </div>
 
@@ -51,15 +47,13 @@ const LoginScreen = props => {
             <Input
               name="password"
               type="password"
-              iconPosition="left"
               placeholder="Password"
               onChange={handlePasswordChange}
+              autoComplete="off"
             />
           </div>
           <div className={styles.login_submit}>
-            <Button type="submit" value="Submit" className={styles.login_btn}>
-              Log in
-            </Button>
+            <Button type="submit" value="Submit" content="Log out" primary />
           </div>
         </Form>
       </div>
