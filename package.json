@@ -4,19 +4,12 @@
   "private": true,
   "dependencies": {
     "axios": "^0.19.0",
-    "classnames": "^2.2.6",
-    "formik": "^1.5.7",
     "jwt-decode": "^2.2.0",
-    "lodash": "^4.17.11",
-    "moment": "^2.24.0",
     "node-sass": "^4.12.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-router-dom": "^5.0.1",
-    "react-scripts": "3.1.1",
-    "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^0.87.2",
-    "yup": "^0.27.0"
+    "react-scripts": "3.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -50,10 +43,7 @@
         "prettier --config .prettierrc --write",
         "git add"
       ]
-    },
-    "ignore": [
-      "src/semantic/**/*"
-    ]
+    }
   },
   "husky": {
     "hooks": {

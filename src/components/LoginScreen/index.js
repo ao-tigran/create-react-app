@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { withRouter } from 'react-router';
 import { useAuth } from './../../hooks/useAuth';
-import { Form, Button, Input } from 'semantic-ui-react';
 import styles from './index.module.scss';
 
 const LoginScreen = props => {
@@ -27,16 +26,15 @@ const LoginScreen = props => {
   return (
     <div id={styles.login_screen}>
       <div className={styles.login_body}>
-        <Form onSubmit={handleFormSubmit}>
+        <form onSubmit={handleFormSubmit}>
           <div className={styles.login_input}>
             <label htmlFor="username" className={styles.login_label}>
               Login
             </label>
-            <Input
+            <input
               name="username"
-              placeholder="Login name"
+              type="text"
               onChange={handleUsernameChange}
-              autoComplete="off"
             />
           </div>
 
@@ -44,18 +42,18 @@ const LoginScreen = props => {
             <label htmlFor="password" className={styles.login_label}>
               Password
             </label>
-            <Input
+            <input
               name="password"
               type="password"
-              placeholder="Password"
               onChange={handlePasswordChange}
-              autoComplete="off"
             />
           </div>
           <div className={styles.login_submit}>
-            <Button type="submit" value="Submit" content="Log In" primary />
+            <button type="submit" value="Submit">
+              Log In
+            </button>
           </div>
-        </Form>
+        </form>
       </div>
     </div>
   );
