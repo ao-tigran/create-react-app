@@ -1,10 +1,7 @@
 import React from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import { AuthProvider } from './../../hooks/useAuth';
-import {
-  NotAuthenticatedRoute,
-  AuthenticatedRoute,
-} from './../AuthenticationRoute';
+import { NotAuthenticatedRoute, AuthenticatedRoute } from './../Routes';
 import LoginScreen from './../../components/LoginScreen';
 import HomeScreen from './../../components/HomeScreen';
 import AboutScreen from './../../components/AboutScreen';

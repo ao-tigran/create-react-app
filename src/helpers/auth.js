@@ -47,7 +47,7 @@ axios.interceptors.response.use(
     return response;
   },
   error => {
-    if (error.config && error.response && error.response.status === 403) {
+    if (error.config && error.response && error.response.status === 401) {
       removeToken();
     }
     return Promise.reject(error);

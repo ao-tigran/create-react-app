@@ -1,8 +1,9 @@
 import React from 'react';
+import styles from './index.module.scss';
 
 const AboutScreen = props => {
   return (
-    <div style={{ textAlign: 'center', margin: '10px auto' }}>
+    <div id={styles.login_screen}>
       For authenticated and unauthenticated users
     </div>
   );
