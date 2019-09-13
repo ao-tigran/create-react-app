@@ -1,9 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react';
-
 import axios from 'axios';
 import { API_URL } from './../config';
-import AuthContext from './../context/AuthContext';
-import { isAuthenticated, setToken, removeToken } from '../helpers/auth';
+import AuthContext, {
+  isAuthenticated,
+  setToken,
+  removeToken,
+} from './../context/AuthContext';
 
 export function AuthProvider({ children }) {
   const [isAuthed, setIsAuthed] = useState(isAuthenticated());

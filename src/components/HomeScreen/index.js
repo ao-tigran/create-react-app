@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import AuthContext from './../../context/AuthContext';
 import { useTranslation } from 'react-i18next';
+import styles from './index.module.scss';
 
 const HomeScreen = props => {
   const { t } = useTranslation();
@@ -12,9 +13,9 @@ const HomeScreen = props => {
   }
 
   return (
-    <div style={{ textAlign: 'center', margin: '10px auto' }}>
+    <div id={styles.home_screen}>
       <h1>Home Screen</h1>
-      <p>{user ? `Welcome ${user.username}` : 'Loading ...'}</p>
+      <p>{`Welcome ${user.username}`}</p>
       <button onClick={logout}>{t('login.logout')}</button>
     </div>
   );
