@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
-import './index.scss';
-import App from './App';
+import App from './containers/App/index';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import './i18n';
+import './index.scss';
+
+ReactDOM.render(
+  <Suspense fallback="loading">
+    <App />
+  </Suspense>
+, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
