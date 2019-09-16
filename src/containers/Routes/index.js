@@ -8,7 +8,16 @@ export const AuthenticatedRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={props =>
-        isAuthed ? <Component {...props} /> : <Redirect to={'/login'} />
+        isAuthed ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{
+              pathname: '/login',
+              state: { from: props.location },
+            }}
+          />
+        )
       }
     />
   );
@@ -20,7 +29,17 @@ export const NotAuthenticatedRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={props =>
-        !isAuthed ? <Component {...props} /> : <Redirect to={'/home'} />
+        !isAuthed ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={
+              (props.location.state && props.location.state.from) || {
+                from: { pathname: '/home' },
+              }
+            }
+          />
+        )
       }
     />
   );

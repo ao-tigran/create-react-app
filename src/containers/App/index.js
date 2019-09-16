@@ -5,12 +5,15 @@ import { NotAuthenticatedRoute, AuthenticatedRoute } from './../Routes';
 import LoginScreen from './../../components/LoginScreen';
 import HomeScreen from './../../components/HomeScreen';
 import AboutScreen from './../../components/AboutScreen';
+import TestRedirect from './../../components/TestRedirect';
 
 function App() {
   return (
     <AuthProvider>
       <Switch>
         <AuthenticatedRoute path="/home" component={HomeScreen} />
+
+        <AuthenticatedRoute path="/testRedirect" component={TestRedirect} />
 
         <NotAuthenticatedRoute path="/login" component={LoginScreen} />
 
