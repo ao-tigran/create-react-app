@@ -2,12 +2,14 @@ import React from 'react';
 import logo from '../../styles/svgs/logo.svg';
 import appSchema from '../../validations/app';
 import useForm from 'react-hook-form';
+import Validation from '../../components/Validation';
 
 import styles from './index.module.scss';
 
 function App() {
   const { register, handleSubmit, errors } = useForm({
     validationSchema: appSchema,
+    mode: 'onBlur',
   });
 
   const onSubmit = data => {};
@@ -30,13 +32,15 @@ function App() {
 
         <br />
 
-        <input name="firstName" type="text" ref={register}></input>
-        {errors.firstName && 'First name is required.'}
+        <Validation name="firstName" showMessage={true} errors={errors}>
+          <input className={styles.lol} name="firstName" type="text" ref={register}></input>
+        </Validation>
 
         <br/>
 
-        <input name="lastName" type="text" ref={register}></input>
-        {errors.lastName && 'Last name is required.'}
+        <Validation name="lastName" showMessage={true} errors={errors}>
+          <input name="lastName" type="text" ref={register}></input>
+        </Validation>
 
         <br />
 
