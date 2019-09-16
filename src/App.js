@@ -1,25 +1,39 @@
 import React from "react";
-import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
+import { Redirect, Switch, withRouter } from "react-router-dom";
+
+import {
+  NotAuthenticatedRoute,
+  AuthenticatedRoute
+} from "./containers/routes/index";
+
 import LoginScreen from "./components/LoginScreen";
 import HomeScreen from "./components/HomeScreen";
-import AboutScreen from "./components/AboutScreen";
-
 import "./App.css";
 
-function App() {
+const App = ({ isAuthed }) => {
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route path="/home" component={HomeScreen} />
+    <Switch>
+      <AuthenticatedRoute
+        path="/"
+        exact
+        component={HomeScreen}
+        isAuthed={isAuthed}
+      />
+      <AuthenticatedRoute
+        path="/home"
+        component={HomeScreen}
+        isAuthed={isAuthed}
+      />
 
-        <Route path="/login" component={LoginScreen} />
+      <NotAuthenticatedRoute
+        path="/login"
+        component={LoginScreen}
+        isAuthed={isAuthed}
+      />
 
-        <Route path="/about" component={AboutScreen} />
-
-        <Redirect from="*" to="/home" />
-      </Switch>
-    </BrowserRouter>
+      <Redirect from="*" to="/home" />
+    </Switch>
   );
-}
+};
 
-export default App;
+export default withRouter(App);
