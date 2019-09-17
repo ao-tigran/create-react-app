@@ -1,23 +1,20 @@
 import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
+import { AuthProvider } from "./hooks/useAuth";
 import "./i18n";
-import * as serviceWorker from "./serviceWorker";
 import App from "./App";
+import * as serviceWorker from "./serviceWorker";
 import "./index.scss";
 
 ReactDOM.render(
-<<<<<<< HEAD
   <Suspense fallback="loading">
     <Router>
-      <App />
+      <AuthProvider>
+        <App />
+      </AuthProvider>
     </Router>
   </Suspense>,
-=======
-  <Router>
-    <App isAuthenticated={false} />
-  </Router>,
->>>>>>> Add AuthenticationRoute class component
   document.getElementById("root")
 );
 

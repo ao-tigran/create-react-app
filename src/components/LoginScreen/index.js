@@ -1,13 +1,18 @@
-import React from "react";
-import { withRouter } from "react-router";
+import React, { useState } from "react";
+import { useAuth } from "./../../hooks/useAuth";
 import { useTranslation } from "react-i18next";
 import styles from "./index.module.scss";
 
 const LoginScreen = props => {
+  const { authenticate } = useAuth();
   const { t } = useTranslation();
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleFormSubmit = event => {
     event.preventDefault();
+    authenticate({ username, password });
   };
 
   return (
@@ -18,14 +23,26 @@ const LoginScreen = props => {
             <label htmlFor="username" className={styles.login_label}>
               {t("login.username")}
             </label>
-            <input name="username" type="text" autoComplete="off" />
+            <input
+              name="username"
+              type="text"
+              value={username}
+              onChange={e => setUsername(e.target.value)}
+              autoComplete="off"
+            />
           </div>
 
           <div className={styles.login_input}>
             <label htmlFor="password" className={styles.login_label}>
               {t("login.password")}
             </label>
-            <input name="password" type="password" autoComplete="off" />
+            <input
+              name="password"
+              type="password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              autoComplete="off"
+            />
           </div>
           <div className={styles.login_submit}>
             <button type="submit" value="Submit">
@@ -38,4 +55,4 @@ const LoginScreen = props => {
   );
 };
 
-export default withRouter(LoginScreen);
+export default LoginScreen;

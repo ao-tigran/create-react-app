@@ -4,8 +4,8 @@ import AuthenticationRoute from "./containers/AuthenticationRoute";
 import routes from "./helpers/routes";
 import LoginScreen from "./components/LoginScreen";
 
-const App = props => {
-  const isAuthenticated = false;
+const App = ({ location }) => {
+  const { from } = location.state || "home";
 
   return (
     <Switch>
@@ -17,9 +17,8 @@ const App = props => {
       <AuthenticationRoute
         path="/login"
         withAuth={false}
+        redirectOnFailure={from}
         component={LoginScreen}
-        redirectOnFailure="/home"
-        isAuthenticated={isAuthenticated}
       />
       {/* ============== END OF non auth routes ========================= */}
 
@@ -28,16 +27,17 @@ const App = props => {
         path="/"
         withAuth={true}
         redirectOnFailure="/login"
-        isAuthenticated={isAuthenticated}
-        render={() => (
-          <Switch>
-            {routes.map((route, index) => (
-              <Route key={index} {...route} />
-            ))}
+        render={() => {
+          return (
+            <Switch>
+              {routes.map((route, index) => (
+                <Route key={index} {...route} />
+              ))}
 
-            <Redirect to="/home" />
-          </Switch>
-        )}
+              <Redirect to="/home" />
+            </Switch>
+          );
+        }}
       />
       {/* ============== END OF auth routes ============================= */}
     </Switch>
