@@ -1,16 +1,15 @@
 import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
-import App from "./App";
-import * as serviceWorker from "./serviceWorker";
-
 import "./i18n";
+import * as serviceWorker from "./serviceWorker";
+import App from "./App";
 import "./index.scss";
 
 ReactDOM.render(
   <Suspense fallback="loading">
     <Router>
-      <App isAuthed={false} />
+      <App />
     </Router>
   </Suspense>,
   document.getElementById("root")
