@@ -1,0 +1,16 @@
+.error_block {
+  position: fixed;
+  top: 0;
+  height: 50px;
+  width: 100%;
+  background: white;
+
+  .error_msg {
+    color: black;
+    vertical-align: middle;
+  }
+
+  .close_button {
+    margin-left: 20px;
+  }
+}
