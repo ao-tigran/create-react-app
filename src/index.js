@@ -7,11 +7,17 @@ import App from "./App";
 import "./index.scss";
 
 ReactDOM.render(
+<<<<<<< HEAD
   <Suspense fallback="loading">
     <Router>
       <App />
     </Router>
   </Suspense>,
+=======
+  <Router>
+    <App isAuthenticated={false} />
+  </Router>,
+>>>>>>> Add AuthenticationRoute class component
   document.getElementById("root")
 );
 
