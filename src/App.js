@@ -1,37 +1,35 @@
 import React from "react";
-import { Redirect, Switch, withRouter } from "react-router-dom";
+import { Switch, Redirect, Route, withRouter } from "react-router-dom";
 
-import {
-  NotAuthenticatedRoute,
-  AuthenticatedRoute
-} from "./containers/routes/index";
+import AuthenticationRoute from "./containers/AuthenticationRoute";
 
 import LoginScreen from "./components/LoginScreen";
 import HomeScreen from "./components/HomeScreen";
 import "./App.css";
 
-const App = ({ isAuthed }) => {
+const App = ({ isAuthenticated }) => {
   return (
     <Switch>
-      <AuthenticatedRoute
-        path="/"
-        exact
-        component={HomeScreen}
-        isAuthed={isAuthed}
-      />
-      <AuthenticatedRoute
-        path="/home"
-        component={HomeScreen}
-        isAuthed={isAuthed}
-      />
-
-      <NotAuthenticatedRoute
+      <AuthenticationRoute
         path="/login"
+        withAuth={false}
         component={LoginScreen}
-        isAuthed={isAuthed}
+        redirectOnFailure="/home"
+        isAuthenticated={isAuthenticated}
       />
+      <AuthenticationRoute
+        path="/"
+        withAuth={true}
+        redirectOnFailure="/login"
+        isAuthenticated={isAuthenticated}
+        render={() => (
+          <Switch>
+            <Route path={"/home"} component={HomeScreen} />
 
-      <Redirect from="*" to="/home" />
+            <Redirect to="/home" />
+          </Switch>
+        )}
+      />
     </Switch>
   );
 };
