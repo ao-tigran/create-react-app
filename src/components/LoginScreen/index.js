@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../hooks/useAuth';
 import Validation from '../Validation';
 import appSchema from '../../validations/app';
+import GlobalError from '../GlobalError';
 import styles from './index.module.scss';
 
 const LoginScreen = () => {
@@ -19,6 +20,9 @@ const LoginScreen = () => {
 
   return (
     <div id={styles.login_screen}>
+
+      <GlobalError />
+
       <div className={styles.login_body}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className={styles.login_input}>
