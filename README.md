@@ -1,3 +1,12 @@
+For cases when writing `px` is necessary write your line between `/* stylelint-disable */` and `/* stylelint-enable */`
+
+ex.
+```
+  /* stylelint-disable */
+  font-size: 16px;
+  /* stylelint-enable */
+```
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
