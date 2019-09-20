@@ -9,6 +9,8 @@
     "password": "password"
   },
   "home": {
-    "title": "Home"
-  }
+    "title": "Home",
+    "welcome": "Welcome"
+  },
+  "logout": "Log Out"
 }
