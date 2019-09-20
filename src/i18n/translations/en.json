@@ -8,11 +8,16 @@
     "username": "username",
     "password": "password"
   },
+
   "home": {
-    "title": "Home"
+    "title": "Home",
+    "welcome": "Welcome"
   },
+
   "currency": {
     "AMD": "AMD",
     "USD": "USD"
-  }
+  },
+
+  "logout": "Log Out"
 }
