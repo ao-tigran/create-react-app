@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import styles from "./index.module.scss";
 
 const LoginScreen = props => {
-  const { authenticate } = useAuth();
+  const { authenticate, isLoading, error } = useAuth();
   const { t } = useTranslation();
 
   const [username, setUsername] = useState("");
@@ -44,8 +44,13 @@ const LoginScreen = props => {
               autoComplete="off"
             />
           </div>
+          {error && (
+            <div>
+              <strong>{error.message}</strong>
+            </div>
+          )}
           <div className={styles.login_submit}>
-            <button type="submit" value="Submit">
+            <button type="submit" value="Submit" disabled={isLoading}>
               <p>{t("login.login")}</p>
             </button>
           </div>

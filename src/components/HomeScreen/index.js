@@ -5,13 +5,18 @@ import LanguageContainer from "./../LanguageContainer";
 import styles from "./index.module.scss";
 
 const HomeScreen = () => {
-  const { user, logout } = useContext(AuthContext);
+  const { user, logout, isLoading } = useContext(AuthContext);
   const { t } = useTranslation();
+
+  if (isLoading) {
+    return null;
+  }
 
   return (
     <div id={styles.home_screen}>
       <h1> {t("home.title")}</h1>
-      <p>{`${t("home.welcome")} ${user && user.name}`}</p>
+
+      <p>{`${t("home.welcome")} ${user.username}`}</p>
       <button type="button" onClick={logout}>
         {t("logout")}
       </button>
