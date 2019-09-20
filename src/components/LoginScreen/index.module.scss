@@ -1,0 +1,36 @@
+#login_screen {
+  background-color: #f0f2f4;
+  height: 100%;
+
+  .login_body {
+    margin: 10% auto auto;
+    width: 280px;
+
+    .login_submit {
+      text-align: center;
+      margin-top: 80px;
+
+      button {
+        padding: 7px 15px;
+        cursor: pointer;
+      }
+    }
+
+    .login_input {
+      margin-bottom: 22px;
+      display: flex;
+      flex-direction: column;
+
+      input {
+        height: 40px;
+        width: 280px;
+        padding-left: 7px;
+        border: 1px solid #cfd8e6;
+      }
+
+      .login_label {
+        margin-bottom: 8px;
+      }
+    }
+  }
+}
