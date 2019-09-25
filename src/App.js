@@ -5,7 +5,7 @@ import routes from "./helpers/routes";
 import LoginScreen from "./components/LoginScreen";
 
 const App = props => {
-  const isAuthenticated = false;
+  const isAuthenticated = true;
 
   return (
     <Switch>
