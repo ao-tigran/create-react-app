@@ -10,5 +10,9 @@
   },
   "home": {
     "title": "Главная страница"
+  },
+  "currency": {
+    "AMD": "AMD",
+    "USD": "USD"
   }
 }

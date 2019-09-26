@@ -3,9 +3,16 @@ import { Switch, Redirect, Route, withRouter } from "react-router-dom";
 import AuthenticationRoute from "./containers/AuthenticationRoute";
 import routes from "./helpers/routes";
 import LoginScreen from "./components/LoginScreen";
+import Currency from "./components/Currency";
 
 const App = props => {
   const isAuthenticated = false;
+  const currencyValue = 1500015646.1568;
+  const currencyType = "AMD";
+  const currencyClass = {
+    fontSize: '20px',
+    margin: '20px'
+  };
 
   return (
     <Switch>
@@ -20,6 +27,15 @@ const App = props => {
         component={LoginScreen}
         redirectOnFailure="/home"
         isAuthenticated={isAuthenticated}
+      />
+       <AuthenticationRoute
+        path="/currency"
+        withAuth={false}
+        redirectOnFailure="/home"
+        isAuthenticated={isAuthenticated}
+        render={() => (<Route path='/currency' render={() => (
+          <Currency value={currencyValue} showType={true} showSymbol={true} type={currencyType} currencyClass={currencyClass} />
+        )}/>)}
       />
       {/* ============== END OF non auth routes ========================= */}
 
