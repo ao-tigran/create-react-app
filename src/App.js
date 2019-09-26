@@ -5,18 +5,26 @@ import routes from "./helpers/routes";
 import LoginScreen from "./components/LoginScreen";
 import Currency from "./components/Currency";
 
+
 const App = props => {
   const isAuthenticated = false;
-  const currencyValue = 1500015646.1568;
-  const currencyType = "AMD";
-  const currencyClass = {
-    fontSize: '20px',
-    margin: '20px'
-  };
+
 
   return (
     <Switch>
       {/* ============== START OF auth insensitive routes ============== */}
+      <Route
+        path="/currency"
+        component={() => (
+          <Currency
+            value="1500015646"
+            withCurrencyLabel={true}
+            withSymbol={true}
+            currency=""
+            fractionDigits="3"
+          />
+        )}
+      />
 
       {/* ============== END OF auth insensitive routes ================ */}
 
@@ -28,15 +36,7 @@ const App = props => {
         redirectOnFailure="/home"
         isAuthenticated={isAuthenticated}
       />
-       <AuthenticationRoute
-        path="/currency"
-        withAuth={false}
-        redirectOnFailure="/home"
-        isAuthenticated={isAuthenticated}
-        render={() => (<Route path='/currency' render={() => (
-          <Currency value={currencyValue} showType={true} showSymbol={true} type={currencyType} currencyClass={currencyClass} />
-        )}/>)}
-      />
+
       {/* ============== END OF non auth routes ========================= */}
 
       {/* ============== START OF auth routes =========================== */}
