@@ -3,13 +3,28 @@ import { Switch, Redirect, Route, withRouter } from "react-router-dom";
 import AuthenticationRoute from "./containers/AuthenticationRoute";
 import routes from "./helpers/routes";
 import LoginScreen from "./components/LoginScreen";
+import Currency from "./components/Currency";
+
 
 const App = props => {
-  const isAuthenticated = true;
+  const isAuthenticated = false;
+
 
   return (
     <Switch>
       {/* ============== START OF auth insensitive routes ============== */}
+      <Route
+        path="/currency"
+        component={() => (
+          <Currency
+            value="1500015646"
+            withCurrencyLabel={true}
+            withSymbol={true}
+            currency=""
+            fractionDigits="3"
+          />
+        )}
+      />
 
       {/* ============== END OF auth insensitive routes ================ */}
 
@@ -21,6 +36,7 @@ const App = props => {
         redirectOnFailure="/home"
         isAuthenticated={isAuthenticated}
       />
+
       {/* ============== END OF non auth routes ========================= */}
 
       {/* ============== START OF auth routes =========================== */}
