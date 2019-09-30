@@ -1,0 +1,25 @@
+#data_table {
+    margin: 2rem auto;
+
+    .sort_icon {
+      color: #3c3938;
+    }
+
+    .filter_input{
+      height: 0.5rem;
+      width: 17rem;
+      border-radius: 0.3rem;
+      border: 0.05rem solid #e5e5e5;
+      padding: 1.3rem;
+      margin: 1rem 1.8rem 0;
+      &:last-child{
+        @media screen and (min-width: 660px) {
+          margin-right: 3.7rem;
+        }
+      }
+  
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }

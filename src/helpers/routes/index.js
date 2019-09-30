@@ -1,5 +1,6 @@
 import React from "react";
 import HomeScreen from "../../components/HomeScreen";
+import DataTable from "../../components/DataTable";
 
 const routes = [
   {
@@ -9,6 +10,10 @@ const routes = [
   {
     path: "/private",
     component: () => <h3>Private screen</h3>
+  },
+  {
+    path: "/datatable",
+    component: DataTable
   }
 ];
 

@@ -19,5 +19,10 @@
     "USD": "ԱՄՆ դոլար"
   },
 
-  "logout": "Ելք"
+  "logout": "Ելք",
+  
+  "table-pagination": {
+    "rowsPerPage": "Տողերի քանակ",
+    "of": "/"
+  }
 }

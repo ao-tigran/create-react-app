@@ -19,5 +19,10 @@
     "USD": "долларов США"
   },
 
-  "logout": "Выйти"
+  "logout": "Выйти",
+  
+  "table-pagination": {
+    "rowsPerPage": "Строк на страницу",
+    "of": "из"
+  }
 }

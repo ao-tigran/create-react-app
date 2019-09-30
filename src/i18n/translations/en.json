@@ -19,5 +19,10 @@
     "USD": "USD"
   },
 
-  "logout": "Log Out"
+  "logout": "Log Out",
+
+  "table-pagination": {
+    "rowsPerPage": "Rows per page",
+    "of": "of"
+  }
 }

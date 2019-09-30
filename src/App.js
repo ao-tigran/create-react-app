@@ -34,7 +34,7 @@ const App = () => {
       {/* ============== START OF auth routes =========================== */}
       <AuthenticationRoute
         path="/"
-        withAuth={true}
+        withAuth={false}
         redirectOnFailure="/login"
         render={() => (
           <Switch>
