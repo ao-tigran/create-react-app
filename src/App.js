@@ -1,15 +1,11 @@
 import React from "react";
-import { Switch, Redirect, Route, withRouter } from "react-router-dom";
+import { Switch, Redirect, Route } from "react-router-dom";
 import AuthenticationRoute from "./containers/AuthenticationRoute";
 import routes from "./helpers/routes";
 import LoginScreen from "./components/LoginScreen";
 import Currency from "./components/Currency";
 
-
-const App = props => {
-  const isAuthenticated = false;
-
-
+const App = () => {
   return (
     <Switch>
       {/* ============== START OF auth insensitive routes ============== */}
@@ -25,7 +21,6 @@ const App = props => {
           />
         )}
       />
-
       {/* ============== END OF auth insensitive routes ================ */}
 
       {/* ============== START OF non auth routes ====================== */}
@@ -33,10 +28,7 @@ const App = props => {
         path="/login"
         withAuth={false}
         component={LoginScreen}
-        redirectOnFailure="/home"
-        isAuthenticated={isAuthenticated}
       />
-
       {/* ============== END OF non auth routes ========================= */}
 
       {/* ============== START OF auth routes =========================== */}
@@ -44,7 +36,6 @@ const App = props => {
         path="/"
         withAuth={true}
         redirectOnFailure="/login"
-        isAuthenticated={isAuthenticated}
         render={() => (
           <Switch>
             {routes.map((route, index) => (
@@ -60,4 +51,4 @@ const App = props => {
   );
 };
 
-export default withRouter(App);
+export default App;
