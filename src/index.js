@@ -1,11 +1,11 @@
-import React, { Suspense } from "react";
-import ReactDOM from "react-dom";
-import { BrowserRouter as Router } from "react-router-dom";
-import { AuthProvider } from "./hooks/useAuth";
-import "./i18n";
-import * as serviceWorker from "./serviceWorker";
-import App from "./App";
-import "./index.scss";
+import React, { Suspense } from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { AuthProvider } from './hooks/useAuth';
+import './i18n';
+import * as serviceWorker from './serviceWorker';
+import App from './App';
+import './index.scss';
 
 ReactDOM.render(
   <Suspense fallback="loading">
@@ -15,7 +15,7 @@ ReactDOM.render(
       </AuthProvider>
     </Router>
   </Suspense>,
-  document.getElementById("root")
+  document.getElementById('root'),
 );
 
 // If you want your app to work offline and load faster, you can change

@@ -1,14 +1,15 @@
-import React from "react";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-const DigitInput = ({ value, onChange, ...rest }) => {
-  const isValid = val => {
-    //Checks if val is empty or contains only digits
+const DigitInput = ({ value, onChange }) => {
+  const isValid = (val) => {
+    // Checks if val is empty or contains only digits
     const reg = /^(^$|\d+)$/;
 
     return val.match(reg);
   };
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     const val = e.target.value;
 
     if (isValid(val)) {
@@ -17,8 +18,17 @@ const DigitInput = ({ value, onChange, ...rest }) => {
   };
 
   return (
-    <input type="tel" value={value} onChange={e => handleChange(e)} {...rest} />
+    <input type="tel" value={value} onChange={(e) => handleChange(e)} />
   );
 };
+DigitInput.propTypes = {
+  value: PropTypes.number,
+  onChange: PropTypes.func,
+};
 
+DigitInput.defaultProps = {
+  value: 0,
+  onChange: () => {
+  },
+};
 export default DigitInput;

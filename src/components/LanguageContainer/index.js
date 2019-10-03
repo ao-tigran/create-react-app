@@ -7,15 +7,15 @@ const LanguageContainer = () => {
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
-  }
+  };
 
   return (
     <div>
-      <div onClick={() => changeLanguage('en')}>{t('en')}</div>
-      <div onClick={() => changeLanguage('hy')}>{t('hy')}</div>
-      <div onClick={() => changeLanguage('ru')}>{t('ru')}</div>
+      <div onClick={() => changeLanguage('en')} role="button" tabIndex="0">{t('en')}</div>
+      <div onClick={() => changeLanguage('hy')} role="button" tabIndex="0">{t('hy')}</div>
+      <div onClick={() => changeLanguage('ru')} role="button" tabIndex="0">{t('ru')}</div>
     </div>
-  )
-}
+  );
+};
 
 export default LanguageContainer;

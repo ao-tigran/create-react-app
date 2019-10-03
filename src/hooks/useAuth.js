@@ -1,9 +1,13 @@
-import React, { useContext, useState, useEffect } from "react";
-import { isAuthenticated, setToken, removeToken } from "./../helpers/auth.js";
-import { createContext } from "react";
+import React, { useContext, useState, useEffect, createContext } from 'react';
+import PropTypes from 'prop-types';
+import { isAuthenticated, setToken, removeToken } from '../helpers/auth';
 
-const fakeTokenFromApi = "test-123456";
-const fakeUserFromApi = { name: "Test User", age: 77 };
+
+const fakeTokenFromApi = 'test-123456';
+const fakeUserFromApi = {
+  name: 'Test User',
+  age: 77,
+};
 
 export const AuthContext = createContext(null);
 
@@ -11,7 +15,7 @@ export const AuthProvider = ({ children }) => {
   const [isAuthed, setIsAuthed] = useState(isAuthenticated());
   const [user, setUser] = useState(null);
 
-  const authenticate = credentials => {
+  const authenticate = () => {
     // TODO: Actually authenticate
     setToken(fakeTokenFromApi);
     setUser(fakeUserFromApi);
@@ -29,7 +33,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    isAuthed && fetchUserInfo();
+    if (isAuthed) {
+      fetchUserInfo();
+    }
   }, [isAuthed]);
 
   return (
@@ -38,12 +44,14 @@ export const AuthProvider = ({ children }) => {
         isAuthed,
         authenticate,
         logout,
-        user
+        user,
       }}
     >
       {children}
     </AuthContext.Provider>
   );
 };
-
+AuthProvider.propTypes = {
+  children: PropTypes.arrayOf(PropTypes.element).isRequired,
+};
 export const useAuth = () => useContext(AuthContext);

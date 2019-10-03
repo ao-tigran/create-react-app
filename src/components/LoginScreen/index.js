@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import { useAuth } from "./../../hooks/useAuth";
-import { useTranslation } from "react-i18next";
-import styles from "./index.module.scss";
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useAuth } from '../../hooks/useAuth';
+import styles from './index.module.scss';
 
-const LoginScreen = props => {
+const LoginScreen = () => {
   const { authenticate } = useAuth();
   const { t } = useTranslation();
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
-  const handleFormSubmit = event => {
+  const handleFormSubmit = (event) => {
     event.preventDefault();
     authenticate({ username, password });
   };
@@ -21,32 +21,32 @@ const LoginScreen = props => {
         <form onSubmit={handleFormSubmit}>
           <div className={styles.login_input}>
             <label htmlFor="username" className={styles.login_label}>
-              {t("login.username")}
+              {t('login.username')}
             </label>
             <input
               name="username"
               type="text"
               value={username}
-              onChange={e => setUsername(e.target.value)}
+              onChange={(e) => setUsername(e.target.value)}
               autoComplete="off"
             />
           </div>
 
           <div className={styles.login_input}>
             <label htmlFor="password" className={styles.login_label}>
-              {t("login.password")}
+              {t('login.password')}
             </label>
             <input
               name="password"
               type="password"
               value={password}
-              onChange={e => setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
               autoComplete="off"
             />
           </div>
           <div className={styles.login_submit}>
             <button type="submit" value="Submit">
-              <p>{t("login.login")}</p>
+              <p>{t('login.login')}</p>
             </button>
           </div>
         </form>
