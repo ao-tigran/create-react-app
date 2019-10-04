@@ -81,7 +81,7 @@ const DateTimePicker = (props) => {
     const hours = newTime ? newTime.getHours() : 0;
     const minutes = newTime ? newTime.getMinutes() : 0;
     const dateWithUpdatedTime = new Date(
-      dateWithOldTime.setHours(hours, minutes),
+      dateWithOldTime.setHours(hours, minutes, 0),
     );
     setDate(dateWithUpdatedTime);
   };
@@ -131,14 +131,13 @@ DateTimePicker.propTypes = {
   inputRef: PropTypes.objectOf(PropTypes.object),
 };
 DateTimePicker.defaultProps = {
-  date: new Date(),
+  date: null,
   setDate: () => {
   },
   type: 'date',
   customInput: CustomInput,
   customInputProps: {},
-  onKeyDown: () => {
-  },
+  onKeyDown: null,
   inputRef: null,
 };
 
@@ -173,13 +172,17 @@ class CustomInputWrapper extends React.PureComponent {
 }
 
 CustomInputWrapper.propTypes = {
-  customInput: PropTypes.element.isRequired,
+  customInput: PropTypes.elementType.isRequired,
   customInputProps: PropTypes.objectOf(PropTypes.object).isRequired,
-  isSmallScreen: PropTypes.func.isRequired,
+  isSmallScreen: PropTypes.bool.isRequired,
   inputRef: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.shape({ current: PropTypes.any }),
-  ]).isRequired,
+  ]),
+};
+
+CustomInputWrapper.defaultProps = {
+  inputRef: null,
 };
 
 export default DateTimePicker;
