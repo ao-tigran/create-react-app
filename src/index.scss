@@ -1,3 +1,11 @@
+@import 'styles/sizes';
+
+html {
+  /* stylelint-disable */
+  font-size: $html-font-size-lg;
+  /* stylelint-enable */
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -10,4 +18,29 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+
+@media screen and (max-width: $tablet-portrait-width) {
+  html {
+    /* stylelint-disable */
+    font-size: $html-font-size-md;
+    /* stylelint-enable */
+  }
+}
+
+@media screen and (max-width: $mobile-landscape-width) {
+  html {
+    /* stylelint-disable */
+    font-size: $html-font-size-sm;
+    /* stylelint-enable */
+  }
+}
+
+@media screen and (max-width: $mobile-portrait-width) {
+  html {
+    /* stylelint-disable */
+    font-size: $html-font-size-xs;
+    /* stylelint-enable */
+  }
 }

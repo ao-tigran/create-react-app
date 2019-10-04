@@ -27,8 +27,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint \"**/*.js\" --ignore-pattern node_modules/",
-    "lint fix": "eslint \"**/*.js\" --ignore-pattern node_modules/ --fix"
+    "eslint": "eslint \"**/*.js\" --ignore-pattern node_modules/",
+    "eslintFix": "eslint \"**/*.js\" --ignore-pattern node_modules/ --fix",
+    "stylelint": "stylelint src/**/*.scss !**/src/.scss/**"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -53,17 +54,23 @@
     "eslint-plugin-react": "^7.15.1",
     "eslint-plugin-react-hooks": "^1.7.0",
     "husky": "^3.0.8",
-    "lint-staged": "^9.4.1"
+    "lint-staged": "^9.4.1",
+    "prettier": "^1.18.2",
+    "stylelint": "^10.1.0"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,json,scss}": [
+      "prettier --config .prettierrc --write",
+      "git add"
+    ],
+    "*.js": [
+      "./node_modules/.bin/eslint \"**/*.js\" --ignore-pattern node_modules/ --fix",
+      "git add"
+    ]
   },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
     }
-  },
-  "lint-staged": {
-    "*.js": [
-      "./node_modules/.bin/eslint \"**/*.js\" --ignore-pattern node_modules/ --fix",
-      "git add"
-    ]
   }
 }
