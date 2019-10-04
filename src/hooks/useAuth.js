@@ -2,7 +2,6 @@ import React, { useContext, useState, useEffect, createContext } from 'react';
 import PropTypes from 'prop-types';
 import { isAuthenticated, setToken, removeToken } from '../helpers/auth';
 
-
 const fakeTokenFromApi = 'test-123456';
 const fakeUserFromApi = {
   name: 'Test User',
@@ -51,7 +50,9 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
 AuthProvider.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.element).isRequired,
+  children: PropTypes.element.isRequired,
 };
+
 export const useAuth = () => useContext(AuthContext);
