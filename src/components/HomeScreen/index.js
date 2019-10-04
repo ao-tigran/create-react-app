@@ -12,10 +12,7 @@ const HomeScreen = () => {
 
   return (
     <div id={styles.home_screen}>
-      <h1>
-        {' '}
-        {t('home.title')}
-      </h1>
+      <h1>{t('home.title')}</h1>
       <p>{`${t('home.welcome')} ${user && user.name}`}</p>
       <button type="button" onClick={logout}>
         {t('logout')}

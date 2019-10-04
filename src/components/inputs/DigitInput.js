@@ -17,18 +17,16 @@ const DigitInput = ({ value, onChange }) => {
     }
   };
 
-  return (
-    <input type="tel" value={value} onChange={(e) => handleChange(e)} />
-  );
+  return <input type="tel" value={value} onChange={(e) => handleChange(e)} />;
 };
+
 DigitInput.propTypes = {
-  value: PropTypes.number,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onChange: PropTypes.func,
 };
 
 DigitInput.defaultProps = {
-  value: 0,
-  onChange: () => {
-  },
+  value: '',
+  onChange: () => {},
 };
 export default DigitInput;
