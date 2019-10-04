@@ -1,6 +1,6 @@
-import { TOKEN } from "./../constants";
+import TOKEN from '../constants';
 
-export const setToken = token => {
+export const setToken = (token) => {
   localStorage.setItem(TOKEN, token);
 };
 
@@ -8,6 +8,4 @@ export const removeToken = () => {
   localStorage.removeItem(TOKEN);
 };
 
-export const isAuthenticated = () => {
-  return !!localStorage.getItem(TOKEN);
-};
+export const isAuthenticated = () => !!localStorage.getItem(TOKEN);

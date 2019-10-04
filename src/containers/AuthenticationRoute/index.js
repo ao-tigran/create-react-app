@@ -1,9 +1,9 @@
-import React from "react";
-import { Route, Redirect, withRouter } from "react-router-dom";
-import { AuthContext } from "./../../hooks/useAuth";
+import React from 'react';
+import { Route, Redirect, withRouter } from 'react-router-dom';
+import { AuthContext } from '../../hooks/useAuth';
 
 class AuthenticationRoute extends Route {
-  isValidRouting = isAuthed => {
+  isValidRouting = (isAuthed) => {
     /** withAuth can take false/true/undefined
      * false - means that you can enter the route only if you are not authenticated
      * true - means that you can enter the route only if you are authenticated
@@ -27,7 +27,7 @@ class AuthenticationRoute extends Route {
 
     // Redirect to the route, the user tried to access
     // right before authentication
-    return location.state ? location.state.from : "/home";
+    return location.state ? location.state.from : '/home';
   }
 
   render() {
@@ -36,18 +36,16 @@ class AuthenticationRoute extends Route {
 
     return (
       <AuthContext.Consumer>
-        {({ isAuthed }) => {
-          return this.isValidRouting(isAuthed) ? (
-            super.render()
-          ) : (
-            <Redirect
-              to={{
-                pathname: redirectOnFailure,
-                state: { from: location.pathname }
-              }}
-            />
-          );
-        }}
+        {({ isAuthed }) => (this.isValidRouting(isAuthed) ? (
+          super.render()
+        ) : (
+          <Redirect
+            to={{
+              pathname: redirectOnFailure,
+              state: { from: location.pathname },
+            }}
+          />
+        ))}
       </AuthContext.Consumer>
     );
   }

@@ -1,15 +1,15 @@
-import React from "react";
-import HomeScreen from "../../components/HomeScreen";
+import React from 'react';
+import HomeScreen from '../../components/HomeScreen';
 
 const routes = [
   {
-    path: "/home",
-    component: HomeScreen
+    path: '/home',
+    component: HomeScreen,
   },
   {
-    path: "/private",
-    component: () => <h3>Private screen</h3>
-  }
+    path: '/private',
+    component: () => <h3>Private screen</h3>,
+  },
 ];
 
 export default routes;

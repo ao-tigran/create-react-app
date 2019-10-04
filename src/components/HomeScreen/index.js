@@ -1,21 +1,24 @@
-import React, { useState } from "react";
-import { useAuth } from "./../../hooks/useAuth";
-import { useTranslation } from "react-i18next";
-import LanguageContainer from "./../LanguageContainer";
-import DigitInput from "./../inputs/DigitInput";
-import styles from "./index.module.scss";
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useAuth } from '../../hooks/useAuth';
+import LanguageContainer from '../LanguageContainer';
+import DigitInput from '../inputs/DigitInput';
+import styles from './index.module.scss';
 
 const HomeScreen = () => {
   const { user, logout } = useAuth();
   const { t } = useTranslation();
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState('');
 
   return (
     <div id={styles.home_screen}>
-      <h1> {t("home.title")}</h1>
-      <p>{`${t("home.welcome")} ${user && user.name}`}</p>
+      <h1>
+        {' '}
+        {t('home.title')}
+      </h1>
+      <p>{`${t('home.welcome')} ${user && user.name}`}</p>
       <button type="button" onClick={logout}>
-        {t("logout")}
+        {t('logout')}
       </button>
       <LanguageContainer />
 
