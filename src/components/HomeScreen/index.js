@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../hooks/useAuth';
 import LanguageContainer from '../LanguageContainer';
-import DigitInput from '../inputs/DigitInput';
+import DateTimePicker from '../DateTimePicker';
 import styles from './index.module.scss';
 
 const HomeScreen = () => {
   const { user, logout } = useAuth();
   const { t } = useTranslation();
-  const [value, setValue] = useState('');
+  const [date, setDate] = useState(null);
 
   return (
     <div id={styles.home_screen}>
@@ -19,13 +19,16 @@ const HomeScreen = () => {
       </button>
       <LanguageContainer />
 
-      <DigitInput
-        name="something"
-        value={value}
-        onChange={setValue}
-        autoComplete="off"
-        className="custom"
-        placeholder="Digits only"
+      <DateTimePicker
+        date={date}
+        setDate={setDate}
+        showYearDropdown
+        showMonthDropdown
+        dropdownMode="select"
+        shouldHideHeader
+        inputProps={{
+          icon: 'calendar',
+        }}
       />
     </div>
   );

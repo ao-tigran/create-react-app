@@ -2,14 +2,11 @@ import React from 'react';
 import { Input } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
+import 'semantic-ui-css/semantic.min.css';
+
 const CustomInput = (props) => {
-  const { icon } = props;
-  return (
-    <Input
-      iconPosition="left"
-      icon={icon}
-    />
-  );
+  const { icon, ...rest } = props;
+  return <Input iconPosition="left" icon={icon} {...rest} />;
 };
 
 CustomInput.propTypes = {
