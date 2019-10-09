@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Picker from 'react-datepicker';
 import PropTypes from 'prop-types';
-import 'react-datepicker/dist/react-datepicker.css';
+import './react-datepicker.css';
 import en from 'date-fns/locale/en-US';
 import ru from 'date-fns/locale/ru';
 import hy from 'date-fns/locale/hy';
@@ -112,6 +112,7 @@ DateTimePicker.defaultProps = {
   type: 'date',
   onKeyDown: () => {},
   inputRef: null,
+  inputProps: {},
 };
 
 class CustomInputWrapper extends React.PureComponent {

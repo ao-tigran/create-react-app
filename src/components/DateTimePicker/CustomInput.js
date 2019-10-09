@@ -3,6 +3,7 @@ import { Input } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
 import 'semantic-ui-css/semantic.min.css';
+/* eslint react/jsx-props-no-spreading: off */
 
 const CustomInput = (props) => {
   const { icon, ...rest } = props;
