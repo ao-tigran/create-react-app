@@ -10,6 +10,13 @@ import CustomInput from './CustomInput';
 
 import { DATE_FORMATS, TIME_FORMATS } from '../../config';
 
+const hidden = {
+  fontSize: '16px',
+  position: 'absolute',
+  top: '-9999px',
+  left: '-9999px',
+};
+
 const DateTimePicker = (props) => {
   const LOCALES = {
     en,
@@ -22,16 +29,14 @@ const DateTimePicker = (props) => {
   };
 
   const dateInputRef = useRef(null);
-  const focusOnDateInput = () => dateInputRef.current.click();
+  const timeInputRef = useRef(null);
+  const triggerInput = (ref) => {
+    ref.current.focus();
+    ref.current.click();
+  };
 
   const [isMobile, setIsMobile] = useState(false);
   const [showMobileKeyboard, setShowMobileKeyboard] = useState(false);
-
-  useEffect(() => {
-    if (showMobileKeyboard) {
-      setTimeout(focusOnDateInput, 50);
-    }
-  }, [showMobileKeyboard]);
 
   const handleTouch = () => {
     if (!isMobile) {
@@ -58,6 +63,12 @@ const DateTimePicker = (props) => {
   const hasDate = type.toLowerCase().includes('date');
   const hasTime = type.toLowerCase().includes('time');
 
+  useEffect(() => {
+    if (showMobileKeyboard) {
+      setTimeout(() => triggerInput(hasDate ? dateInputRef : timeInputRef), 50);
+    }
+  }, [showMobileKeyboard, hasDate]);
+
   const fixOnEnter = (e) => {
     // makes sure input loses focus on enter, to avoid date parsing bugs
     if (e.key.toLowerCase() === 'enter') {
@@ -73,17 +84,21 @@ const DateTimePicker = (props) => {
     const hours = newTime ? newTime.getHours() : 0;
     const minutes = newTime ? newTime.getMinutes() : 0;
     const dateWithUpdatedTime = new Date(
-      dateWithOldTime.setHours(hours, minutes),
+      dateWithOldTime.setHours(hours, minutes, 0),
     );
     setDate(dateWithUpdatedTime);
   };
 
   const handleDateChange = (newDate) => {
-    setDate(newDate);
+    const oldDate = date ? new Date(date) : new Date();
+    const hours = oldDate.getHours();
+    const minutes = oldDate.getMinutes();
+    const updatedDate = new Date(newDate.setHours(hours, minutes, 0));
+    setDate(updatedDate);
   };
 
   const handleDateTimeChange = (changedDate) => {
-    if (!hasDate) {
+    if (hasTime) {
       return handleTimeChange(changedDate);
     }
     return handleDateChange(changedDate);
@@ -96,10 +111,8 @@ const DateTimePicker = (props) => {
         selected={date}
         onChange={handleDateTimeChange}
         dateFormat={FORMATS[type]}
-        showTimeSelect={hasTime && !isMobile}
-        // showTimeSelectOnly={!hasDate}
-        // showTimeInput={hasTime && !!isMobile}
-        // timeInputLabel="Time: "
+        showTimeSelect={hasTime}
+        showTimeSelectOnly={hasTime}
         locale={LOCALES[currentLanguage]}
         customInput={(
           <CustomInputWrapper
@@ -111,21 +124,39 @@ const DateTimePicker = (props) => {
         )}
         showYearDropdown
         showMonthDropdown
-        // withPortal={isMobile}
-        // shouldCloseOnSelect={!isMobile}
         dropdownMode="select"
         onKeyDown={fixOnEnter}
-        // readOnly={isMobile}
-        open={isMobile ? false : undefined}
+        open={isMobile ? false : undefined} // prevent calendar popup on mobile devices
         {...rest}
       />
-      <input
-        type="date"
-        ref={dateInputRef}
-        onChange={(e) => setDate(e.target.value ? new Date(e.target.value) : null)}
-        onBlur={() => setShowMobileKeyboard(false)}
-        // style={{fontSize: '16px', position: 'absolute', top: '-9999px', left: '-9999px'}}
-      />
+      {hasDate ? (
+        <input
+          type="date"
+          ref={dateInputRef}
+          onChange={(e) => {
+            handleDateChange(e.target.value ? new Date(e.target.value) : null);
+            setShowMobileKeyboard(false);
+          }}
+          onBlur={() => setShowMobileKeyboard(false)}
+          style={hidden}
+        />
+      ) : null}
+      {hasTime ? (
+        <input
+          type="time"
+          ref={timeInputRef}
+          onChange={(e) => {
+            if (e.target.value) {
+              handleTimeChange(
+                new Date(`${new Date().toDateString()} ${e.target.value}:00`),
+              );
+            }
+            setShowMobileKeyboard(false);
+          }}
+          onBlur={() => setShowMobileKeyboard(false)}
+          style={hidden}
+        />
+      ) : null}
     </>
   );
 };
