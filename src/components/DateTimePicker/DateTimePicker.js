@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import Picker from 'react-datepicker';
 import PropTypes from 'prop-types';
@@ -6,9 +6,17 @@ import './stylesheets/datepicker.scss';
 import en from 'date-fns/locale/en-US';
 import ru from 'date-fns/locale/ru';
 import hy from 'date-fns/locale/hy';
+import checkMobile from 'ismobilejs';
 import CustomInput from './CustomInput';
 
 import { DATE_FORMATS, TIME_FORMATS } from '../../config';
+
+const hiddenInput = {
+  fontSize: '16px',
+  position: 'absolute',
+  top: '-9999px',
+  left: '-9999px',
+};
 
 const DateTimePicker = (props) => {
   const LOCALES = {
@@ -21,26 +29,19 @@ const DateTimePicker = (props) => {
     time: TIME_FORMATS,
   };
 
-  const dateInputRef = useRef(null);
-  const focusOnDateInput = () => dateInputRef.current.click();
+  const hiddenInputRef = useRef(null);
 
-  const [isMobile, setIsMobile] = useState(false);
-  const [showMobileKeyboard, setShowMobileKeyboard] = useState(false);
+  const [isMobile] = useState(checkMobile(window.navigator.userAgent).any);
 
-  useEffect(() => {
-    if (showMobileKeyboard) {
-      setTimeout(focusOnDateInput, 50);
-    }
-  }, [showMobileKeyboard]);
-
-  const handleTouch = () => {
+  const triggerInput = (ref) => {
     if (!isMobile) {
-      setIsMobile(true);
+      return;
     }
-    if (!showMobileKeyboard) {
-      setShowMobileKeyboard(true);
-    }
+    ref.current.focus();
+    ref.current.click();
   };
+
+  const handleTouch = () => setTimeout(() => triggerInput(hiddenInputRef), 50);
 
   const { i18n } = useTranslation();
   const currentLanguage = i18n.language;
@@ -73,20 +74,44 @@ const DateTimePicker = (props) => {
     const hours = newTime ? newTime.getHours() : 0;
     const minutes = newTime ? newTime.getMinutes() : 0;
     const dateWithUpdatedTime = new Date(
-      dateWithOldTime.setHours(hours, minutes),
+      dateWithOldTime.setHours(hours, minutes, 0),
     );
     setDate(dateWithUpdatedTime);
   };
 
+  const clearTime = () => handleTimeChange(new Date(new Date().setHours(0, 0, 0)));
+
   const handleDateChange = (newDate) => {
-    setDate(newDate);
+    if (!newDate) {
+      return setDate(null);
+    }
+    const oldDate = date ? new Date(date) : new Date();
+    const hours = oldDate.getHours();
+    const minutes = oldDate.getMinutes();
+    const updatedDate = new Date(newDate.setHours(hours, minutes, 0));
+    return setDate(updatedDate);
   };
 
+  const clearDate = () => setDate(null);
+
   const handleDateTimeChange = (changedDate) => {
-    if (!hasDate) {
+    if (hasTime) {
       return handleTimeChange(changedDate);
     }
     return handleDateChange(changedDate);
+  };
+
+  const handleHiddenInputChange = (e) => {
+    const { value } = e.target;
+    if (!value) {
+      return hasDate ? clearDate() : clearTime();
+    }
+    if (hasDate) {
+      return handleDateChange(new Date(value));
+    }
+    return handleTimeChange(
+      new Date(`${new Date().toDateString()} ${value}:00`),
+    );
   };
 
   /* eslint react/jsx-props-no-spreading: off */
@@ -96,35 +121,29 @@ const DateTimePicker = (props) => {
         selected={date}
         onChange={handleDateTimeChange}
         dateFormat={FORMATS[type]}
-        showTimeSelect={hasTime && !isMobile}
-        // showTimeSelectOnly={!hasDate}
-        // showTimeInput={hasTime && !!isMobile}
-        // timeInputLabel="Time: "
+        showTimeSelect={hasTime}
+        showTimeSelectOnly={hasTime}
         locale={LOCALES[currentLanguage]}
         customInput={(
           <CustomInputWrapper
             isMobile={isMobile}
             inputRef={inputRef}
-            onTouchEnd={handleTouch}
             inputProps={inputProps}
+            handleTouch={handleTouch}
           />
         )}
         showYearDropdown
         showMonthDropdown
-        // withPortal={isMobile}
-        // shouldCloseOnSelect={!isMobile}
         dropdownMode="select"
         onKeyDown={fixOnEnter}
-        // readOnly={isMobile}
-        open={isMobile ? false : undefined}
+        open={isMobile ? false : undefined} // prevent calendar popup on mobile devices
         {...rest}
       />
       <input
-        type="date"
-        ref={dateInputRef}
-        onChange={(e) => setDate(e.target.value ? new Date(e.target.value) : null)}
-        onBlur={() => setShowMobileKeyboard(false)}
-        // style={{fontSize: '16px', position: 'absolute', top: '-9999px', left: '-9999px'}}
+        type={hasDate ? 'date' : 'time'}
+        ref={hiddenInputRef}
+        onChange={handleHiddenInputChange}
+        style={hiddenInput}
       />
     </>
   );
@@ -153,7 +172,14 @@ DateTimePicker.defaultProps = {
 
 class CustomInputWrapper extends React.PureComponent {
   render() {
-    const { isMobile, inputRef, inputProps, ...rest } = this.props;
+    const {
+      isMobile,
+      inputRef,
+      inputProps,
+      handleTouch,
+      onClick,
+      ...rest
+    } = this.props;
 
     const fixLabelBubbling = (e) => {
       // makes sure that clicks inside datepicker don't trigger the label again
@@ -168,6 +194,7 @@ class CustomInputWrapper extends React.PureComponent {
           {...inputProps}
           {...rest}
           readOnly={!!isMobile} // prevent keyboard popup on mobile devices
+          onClick={isMobile ? handleTouch : onClick}
         />
       </label>
     );
@@ -181,12 +208,16 @@ CustomInputWrapper.propTypes = {
     PropTypes.func,
     PropTypes.shape({ current: PropTypes.any }),
   ]),
+  handleTouch: PropTypes.func,
+  onClick: PropTypes.func,
 };
 
 CustomInputWrapper.defaultProps = {
   inputProps: {},
   isMobile: false,
   inputRef: null,
+  handleTouch: () => {},
+  onClick: () => {},
 };
 
 export default DateTimePicker;

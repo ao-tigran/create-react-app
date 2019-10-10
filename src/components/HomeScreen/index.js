@@ -26,6 +26,21 @@ const HomeScreen = () => {
           icon: 'calendar',
         }}
       />
+
+      <DateTimePicker
+        type="time"
+        date={date}
+        setDate={setDate}
+        inputProps={{
+          icon: 'clock',
+        }}
+      />
+
+      <p>
+        Chosen date:
+        {date ? date.toString() : 'None'}
+        {' '}
+      </p>
     </div>
   );
 };
