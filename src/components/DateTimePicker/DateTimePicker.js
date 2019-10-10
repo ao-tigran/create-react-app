@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import Picker from 'react-datepicker';
 import PropTypes from 'prop-types';
@@ -21,9 +21,26 @@ const DateTimePicker = (props) => {
     time: TIME_FORMATS,
   };
 
-  const [isMobile, setIsMobile] = useState(false);
+  const dateInputRef = useRef(null);
+  const focusOnDateInput = () => dateInputRef.current.click();
 
-  const confirmMobile = () => setIsMobile(true);
+  const [isMobile, setIsMobile] = useState(false);
+  const [showMobileKeyboard, setShowMobileKeyboard] = useState(false);
+
+  useEffect(() => {
+    if (showMobileKeyboard) {
+      setTimeout(focusOnDateInput, 50);
+    }
+  }, [showMobileKeyboard]);
+
+  const handleTouch = () => {
+    if (!isMobile) {
+      setIsMobile(true);
+    }
+    if (!showMobileKeyboard) {
+      setShowMobileKeyboard(true);
+    }
+  };
 
   const { i18n } = useTranslation();
   const currentLanguage = i18n.language;
@@ -74,31 +91,42 @@ const DateTimePicker = (props) => {
 
   /* eslint react/jsx-props-no-spreading: off */
   return (
-    <Picker
-      selected={date}
-      onChange={handleDateTimeChange}
-      dateFormat={FORMATS[type]}
-      showTimeSelect={hasTime && !isMobile}
-      showTimeSelectOnly={!hasDate}
-      showTimeInput={hasTime && !!isMobile}
-      timeInputLabel="Time: "
-      locale={LOCALES[currentLanguage]}
-      customInput={(
-        <CustomInputWrapper
-          isMobile={isMobile}
-          inputRef={inputRef}
-          onTouchStart={confirmMobile}
-          inputProps={inputProps}
-        />
-      )}
-      showYearDropdown
-      showMonthDropdown
-      withPortal={isMobile}
-      shouldCloseOnSelect={!isMobile}
-      dropdownMode="select"
-      onKeyDown={fixOnEnter}
-      {...rest}
-    />
+    <>
+      <Picker
+        selected={date}
+        onChange={handleDateTimeChange}
+        dateFormat={FORMATS[type]}
+        showTimeSelect={hasTime && !isMobile}
+        // showTimeSelectOnly={!hasDate}
+        // showTimeInput={hasTime && !!isMobile}
+        // timeInputLabel="Time: "
+        locale={LOCALES[currentLanguage]}
+        customInput={(
+          <CustomInputWrapper
+            isMobile={isMobile}
+            inputRef={inputRef}
+            onTouchEnd={handleTouch}
+            inputProps={inputProps}
+          />
+        )}
+        showYearDropdown
+        showMonthDropdown
+        // withPortal={isMobile}
+        // shouldCloseOnSelect={!isMobile}
+        dropdownMode="select"
+        onKeyDown={fixOnEnter}
+        // readOnly={isMobile}
+        open={isMobile ? false : undefined}
+        {...rest}
+      />
+      <input
+        type="date"
+        ref={dateInputRef}
+        onChange={(e) => setDate(e.target.value ? new Date(e.target.value) : null)}
+        onBlur={() => setShowMobileKeyboard(false)}
+        // style={{fontSize: '16px', position: 'absolute', top: '-9999px', left: '-9999px'}}
+      />
+    </>
   );
 };
 /* eslint react/forbid-prop-types: off */
