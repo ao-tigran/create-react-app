@@ -22,10 +22,6 @@ const HomeScreen = () => {
       <DateTimePicker
         date={date}
         setDate={setDate}
-        showYearDropdown
-        showMonthDropdown
-        dropdownMode="select"
-        shouldHideHeader
         inputProps={{
           icon: 'calendar',
         }}

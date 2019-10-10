@@ -11,10 +11,10 @@ const CustomInput = (props) => {
 };
 
 CustomInput.propTypes = {
-  icon: PropTypes.oneOf(PropTypes.bool || PropTypes.element),
+  icon: PropTypes.string,
 };
 CustomInput.defaultProps = {
-  icon: false,
+  icon: null,
 };
 
 export default CustomInput;

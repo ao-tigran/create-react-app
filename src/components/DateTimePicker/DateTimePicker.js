@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Picker from 'react-datepicker';
 import PropTypes from 'prop-types';
-import './react-datepicker.css';
+import './stylesheets/datepicker.scss';
 import en from 'date-fns/locale/en-US';
 import ru from 'date-fns/locale/ru';
 import hy from 'date-fns/locale/hy';
@@ -50,6 +50,7 @@ const DateTimePicker = (props) => {
       onKeyDown();
     }
   };
+
   const handleTimeChange = (newTime) => {
     const dateWithOldTime = date ? new Date(date) : new Date();
     const hours = newTime ? newTime.getHours() : 0;
@@ -70,6 +71,7 @@ const DateTimePicker = (props) => {
     }
     return handleDateChange(changedDate);
   };
+
   /* eslint react/jsx-props-no-spreading: off */
   return (
     <Picker
@@ -89,22 +91,28 @@ const DateTimePicker = (props) => {
           inputProps={inputProps}
         />
       )}
+      showYearDropdown
+      showMonthDropdown
       withPortal={isMobile}
       shouldCloseOnSelect={!isMobile}
+      dropdownMode="select"
       onKeyDown={fixOnEnter}
       {...rest}
     />
   );
 };
+/* eslint react/forbid-prop-types: off */
 
-// TODO: update proptypes and default props
 DateTimePicker.propTypes = {
   date: PropTypes.instanceOf(Date),
   setDate: PropTypes.func,
   type: PropTypes.string,
   onKeyDown: PropTypes.func,
-  inputRef: PropTypes.objectOf(PropTypes.object),
-  inputProps: PropTypes.objectOf(PropTypes.object),
+  inputRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.any }),
+  ]),
+  inputProps: PropTypes.object,
 };
 DateTimePicker.defaultProps = {
   date: new Date(),
@@ -139,12 +147,18 @@ class CustomInputWrapper extends React.PureComponent {
 }
 
 CustomInputWrapper.propTypes = {
-  inputProps: PropTypes.objectOf(PropTypes.object).isRequired,
-  isMobile: PropTypes.bool.isRequired,
+  inputProps: PropTypes.object,
+  isMobile: PropTypes.bool,
   inputRef: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.shape({ current: PropTypes.any }),
-  ]).isRequired,
+  ]),
+};
+
+CustomInputWrapper.defaultProps = {
+  inputProps: {},
+  isMobile: false,
+  inputRef: null,
 };
 
 export default DateTimePicker;
