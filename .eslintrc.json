@@ -32,8 +32,7 @@
     "jsx-a11y/label-has-associated-control": [
       2,
       {
-        "labelAttributes": ["label"],
-        "controlComponents": ["Component"],
+        "controlComponents": ["CustomInput"],
         "depth": 3
       }
     ],

@@ -2,21 +2,22 @@ import React from 'react';
 import { Input } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
+import 'semantic-ui-css/semantic.min.css';
+/* eslint react/jsx-props-no-spreading: off */
+
 const CustomInput = (props) => {
-  const { icon } = props;
-  return (
-    <Input
-      iconPosition="left"
-      icon={icon}
-    />
-  );
+  const { inputRef, ...rest } = props;
+  return <Input ref={inputRef} {...rest} />;
 };
 
 CustomInput.propTypes = {
-  icon: PropTypes.oneOf(PropTypes.bool || PropTypes.element),
+  inputRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.any }),
+  ]),
 };
 CustomInput.defaultProps = {
-  icon: false,
+  inputRef: null,
 };
 
 export default CustomInput;
