@@ -61,6 +61,10 @@ code {
   .ui.button.expand-btn i.icon {
     margin: 0 !important;
   }
+
+  .ui.table:not(.unstackable) tr > td.padding-top {
+    padding-top: 1em !important;
+  }
 }
 
 @media screen and (max-width: $mobile-landscape-width) {

@@ -13,7 +13,7 @@ const TableHeader = (props) => {
       <Table.Row>
         {columns.map((item) => (
           <Table.HeaderCell
-            key={item.id}
+            key={item.property}
             width={item.width}
             sorted={column === item.property ? direction : null}
             onClick={() => handleSort(item.property)}
@@ -28,9 +28,14 @@ const TableHeader = (props) => {
 
 TableHeader.propTypes = {
   columns: PropTypes.arrayOf(PropTypes.object).isRequired,
-  column: PropTypes.string.isRequired,
-  direction: PropTypes.string.isRequired,
+  column: PropTypes.string,
+  direction: PropTypes.string,
   handleSort: PropTypes.func.isRequired,
+};
+
+TableHeader.defaultProps = {
+  column: null,
+  direction: null,
 };
 
 export default TableHeader;

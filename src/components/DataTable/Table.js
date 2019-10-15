@@ -12,12 +12,9 @@ import PageSizeSelect from './PageSizeSelect';
 import TableHeader from './TableHeader';
 import styles from './table.module.scss';
 
-import 'semantic-ui-css/semantic.min.css';
-
 const Table = (props) => {
   const { t } = useTranslation();
   const [expanded, setExpanded] = useState([]);
-  const [isExpanded, setIsExpanded] = useState(false);
 
   const {
     currentPage,
@@ -55,8 +52,8 @@ const Table = (props) => {
       {columns.map((dataColumn, i) => {
         const cls = classnames({
           'not-bold': i === 0,
-          'angle down icon': i !== 0 && !expanded.includes(item.id),
           'hidden-cell': i !== 0 && !expanded.includes(item.id),
+          'padding-top': i !== 0,
         });
         const btn = classnames({
           'angle right icon': !expanded.includes(item.id),
@@ -64,7 +61,7 @@ const Table = (props) => {
         });
 
         return (
-          <SemanticTable.Cell className={cls} key={dataColumn.id}>
+          <SemanticTable.Cell className={cls} key={dataColumn.title}>
             <p className={styles.expandTitle}>{t(dataColumn.title)}</p>
             {i === 0 && (
               <Button
@@ -75,16 +72,13 @@ const Table = (props) => {
                   } else {
                     setExpanded([...expanded, item.id]);
                   }
-                  setIsExpanded(!isExpanded);
                 }}
               >
                 <Icon className={btn} size="large" />
               </Button>
             )}
 
-            <p className={isExpanded ? styles.expandProperty : styles.noMargin}>
-              {item[dataColumn.property]}
-            </p>
+            <p className={styles.expandProperty}>{item[dataColumn.property]}</p>
           </SemanticTable.Cell>
         );
       })}
@@ -95,7 +89,6 @@ const Table = (props) => {
     <>
       <PageSizeSelect limit={+limit} onChangeLimit={onChangeLimit} />
       Total count:
-      {' '}
       {totalCount}
 .
       <SemanticTable celled selectable sortable>

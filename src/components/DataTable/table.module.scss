@@ -1,5 +1,24 @@
 @import '../../styles/sizes';
 
+.dataTableContainer {
+  position: relative;
+
+  .loaderWrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: none;
+
+    .loader {
+      top: 5em;
+    }
+
+    .loaderImg {
+      margin: 0 auto;
+    }
+  }
+}
+
 @media screen and (max-width: $tablet-portrait-width) {
   .expandTitle {
     color: #2c5aa5;
@@ -9,11 +28,5 @@
 
   .expandProperty {
     font-size: 1.3em;
-    margin: 0 0 0.6em !important;
-  }
-
-  .noMargin {
-    font-size: 1.3em;
-    margin: 0;
   }
 }

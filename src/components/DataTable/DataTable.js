@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Segment } from 'semantic-ui-react';
+import { Segment, Loader, Dimmer, Image } from 'semantic-ui-react';
 
 import axios from 'axios';
 import Table from './Table';
+import styles from './table.module.scss';
 
 const DataTable = (props) => {
   const { dataSource, columns, currentPage, paginated, limit } = props;
@@ -16,34 +17,6 @@ const DataTable = (props) => {
   const [limitSize, setLimitSize] = useState(limit);
   const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(false);
-
-  const loadData = (params) => {
-    setLoading(true);
-
-    const requestParams = {};
-
-    if (sort) {
-      requestParams.order = order;
-      requestParams.sortBy = sort;
-    }
-
-    if (isPaginated) {
-      requestParams.page = page;
-      requestParams.limit = limitSize;
-    }
-
-    axios
-      .get(params.dataSource, { params: requestParams })
-      .then((response) => {
-        setData(response.data);
-        setTotalCount(50);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setLoading(false);
-        console.log(error);
-      });
-  };
 
   const handleSort = (clickedColumn) => {
     let newOrder = order === 'asc' ? 'desc' : 'asc';
@@ -60,14 +33,50 @@ const DataTable = (props) => {
 
   const onChangePage = (event, eventData) => setPage(eventData.activePage);
 
-  useEffect(
-    () => isServer && loadData({ sort, page, order, limitSize, dataSource }),
-    [sort, page, order, limitSize, isServer, loadData, dataSource],
-  );
+  useEffect(() => {
+    if (isServer) {
+      setLoading(true);
+
+      const requestParams = {};
+
+      if (sort) {
+        requestParams.order = order;
+        requestParams.sortBy = sort;
+      }
+
+      if (isPaginated) {
+        requestParams.page = page;
+        requestParams.limit = limitSize;
+      }
+
+      axios
+        .get(dataSource, { params: requestParams })
+        .then((response) => {
+          setTotalCount(50); // total count should be included in metadata of the response
+          setLoading(false);
+          setData(response.data);
+        })
+        .catch((error) => {
+          setLoading(false);
+          console.log(error);
+        });
+    }
+  }, [sort, page, order, limitSize, dataSource, isPaginated, isServer]);
 
   return (
-    <Segment>
-      {loading && <p>Loading...</p>}
+    <Segment className={styles.dataTableContainer}>
+      {loading && (
+        <Segment className={styles.loaderWrapper}>
+          <Dimmer active inverted>
+            <Loader className={styles.loader}>Loading</Loader>
+          </Dimmer>
+
+          <Image
+            src="https://react.semantic-ui.com/images/wireframe/paragraph.png"
+            className={styles.loaderImg}
+          />
+        </Segment>
+      )}
       <Table
         columns={columns}
         data={data}

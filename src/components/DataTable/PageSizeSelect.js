@@ -19,7 +19,6 @@ const PageSizeSelect = (props) => {
 
 PageSizeSelect.propTypes = {
   options: PropTypes.arrayOf(PropTypes.object),
-  // defaultValue: PropTypes.number,
   onChangeLimit: PropTypes.func.isRequired,
   limit: PropTypes.number.isRequired,
 };
@@ -31,7 +30,6 @@ PageSizeSelect.defaultProps = {
     { key: '2', value: '50', text: '50' },
     { key: '3', value: '100', text: '100' },
   ],
-  // defaultValue: 10,
 };
 
 export default PageSizeSelect;

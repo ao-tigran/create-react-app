@@ -4,7 +4,6 @@ import { useAuth } from '../../hooks/useAuth';
 import LanguageContainer from '../LanguageContainer';
 import DateTimePicker from '../DateTimePicker';
 import styles from './index.module.scss';
-import DataTable from '../DataTable/DataTable';
 
 const HomeScreen = () => {
   const { user, logout } = useAuth();
@@ -44,20 +43,6 @@ const HomeScreen = () => {
         {date ? date.toString() : 'None'}
         {' '}
       </p>
-      
-      <DataTable
-        columns={[
-          {
-            property: 'name',
-            title: 'login.username',
-          },
-          {
-            property: 'createdAt',
-            title: 'login.password',
-          },
-        ]}
-        dataSource="https://5da09ce0525b790014489ff4.mockapi.io/manan/toys"
-      />
     </div>
   );
 };
