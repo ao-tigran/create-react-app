@@ -8,24 +8,58 @@ html {
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 
+@media screen and (min-width: $tablet-portrait-width) {
+  .ui.button.expand-btn {
+    display: none;
+  }
+}
 
 @media screen and (max-width: $tablet-portrait-width) {
   html {
     /* stylelint-disable */
     font-size: $html-font-size-md;
     /* stylelint-enable */
+  }
+
+  .ui.table:not(.unstackable) tr > td.hidden-cell {
+    display: none !important;
+  }
+
+  .ui.table:not(.unstackable) tr > td.not-bold {
+    font-weight: inherit;
+  }
+
+  .ui.celled.table tr td.expand-title {
+    color: #2c5aa5;
+    text-transform: uppercase;
+    font-size: 15px;
+  }
+  .ui.celled.table tr {
+    position: relative;
+  }
+
+  .ui.button.expand-btn {
+    text-align: center;
+    background: transparent;
+    color: #f36a0f;
+    position: absolute;
+    right: 2em;
+    top: 1.2em;
+  }
+  .ui.button.expand-btn i.icon {
+    margin: 0 !important;
   }
 }
 
@@ -35,6 +69,13 @@ code {
     font-size: $html-font-size-sm;
     /* stylelint-enable */
   }
+
+  .ui.table:not(.unstackable) tr > td.hidden-cell {
+    display: none !important;
+  }
+  .ui.celled.table tr td.expanded-title {
+    color: #2c5aa5;
+  }
 }
 
 @media screen and (max-width: $mobile-portrait-width) {
@@ -42,5 +83,12 @@ code {
     /* stylelint-disable */
     font-size: $html-font-size-xs;
     /* stylelint-enable */
+  }
+
+  .ui.table:not(.unstackable) tr > td.hidden-cell {
+    display: none !important;
+  }
+  .ui.celled.table tr td.expanded-title {
+    color: #2c5aa5;
   }
 }

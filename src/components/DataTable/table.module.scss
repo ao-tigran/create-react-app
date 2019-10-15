@@ -1,0 +1,19 @@
+@import '../../styles/sizes';
+
+@media screen and (max-width: $tablet-portrait-width) {
+  .expandTitle {
+    color: #2c5aa5;
+    text-transform: uppercase;
+    margin-bottom: 0;
+  }
+
+  .expandProperty {
+    font-size: 1.3em;
+    margin: 0 0 0.6em !important;
+  }
+
+  .noMargin {
+    font-size: 1.3em;
+    margin: 0;
+  }
+}
