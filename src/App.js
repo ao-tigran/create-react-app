@@ -5,6 +5,7 @@ import routes from './helpers/routes';
 import LoginScreen from './components/LoginScreen';
 import Currency from './components/Currency';
 import { GlobalErrProvider } from './hooks/useGlobalError';
+import DataTable from './components/DataTable/DataTable';
 
 const App = () => (
   <GlobalErrProvider>
@@ -35,6 +36,7 @@ const App = () => (
       {/* ============== START OF auth routes =========================== */}
       <AuthenticationRoute
         path="/"
+        exact
         withAuth
         redirectOnFailure="/login"
         render={() => (
@@ -48,6 +50,26 @@ const App = () => (
             ))}
             <Redirect to="/home" />
           </Switch>
+        )}
+      />
+      <AuthenticationRoute
+        path="/table"
+        withAuth
+        redirectOnFailure="/login"
+        component={() => (
+          <DataTable
+            columns={[
+              {
+                property: 'name',
+                title: 'login.username',
+              },
+              {
+                property: 'createdAt',
+                title: 'login.password',
+              },
+            ]}
+            dataSource="https://5da09ce0525b790014489ff4.mockapi.io/manan/toys"
+          />
         )}
       />
       {/* ============== END OF auth routes ============================= */}
