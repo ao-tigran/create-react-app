@@ -46,7 +46,6 @@ const App = () => (
                 path={route.path}
               />
             ))}
-
             <Redirect to="/home" />
           </Switch>
         )}
