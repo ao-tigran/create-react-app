@@ -14,7 +14,7 @@ const App = () => (
         path="/currency"
         component={() => (
           <Currency
-            value="1500015646"
+            value="150001564"
             withCurrencyLabel
             withSymbol
             currency=""
